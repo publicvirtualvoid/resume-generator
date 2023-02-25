@@ -3,11 +3,9 @@ import res from "../../resume.json";
 import { ResumeSchema } from "../resume-schema";
 import { validateSchema } from "../validate";
 
-// load
-const resume = res as Omit<ResumeSchema, "$schema">;
-
 // validate
-validateSchema(resume);
+validateSchema(res);
+const resume = res as Omit<ResumeSchema, "$schema">;
 
 const IndexPage = () => {
   return <div>foo</div>;
@@ -15,4 +13,4 @@ const IndexPage = () => {
 
 export default IndexPage;
 
-export const Head = () => <title>Your resume</title>;
+export const Head = () => <title>{resume.basics?.name}'s resume</title>;

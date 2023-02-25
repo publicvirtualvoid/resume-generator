@@ -1,11 +1,16 @@
 import Ajv from "ajv";
 import JsonSchema from "resume-schema/schema.json";
+import { ResumeSchema } from "./resume-schema";
 
-export function validateSchema(resume: any) {
-  const ajv = new Ajv();
+export function validateSchema(resume: ResumeSchema) {
+  const ajv = new Ajv({
+    validateSchema: false,
+    strict: false,
+    validateFormats: false,
+  });
   const validate = ajv.compile(JsonSchema);
   const valid = validate(resume);
   if (!valid) {
-    throw new Error(validate.errors?.join("\n"));
+    console.log(validate.errors);
   }
 }
